@@ -1,5 +1,9 @@
 import pandas as pd
 
+'''
+input: name of textfile
+output: dataframe
+'''
 def extract_data(filename):
     # open file and skips the first line (which just tells us how many pictures there are)
     f = open(filename, "r")
@@ -19,9 +23,10 @@ def extract_data(filename):
     return pd.DataFrame(rows, columns=['orientation', 'number of tags', 'tags'])
 
 '''
-pass in two sets of elements
+input: two sets of string elements
+output: score between two slides
 '''
-def compute_score(slide1, slide2):
+def transition_score(slide1, slide2):
     intersect = slide1 & slide2
     s1 = slide1 - slide2
     s2 = slide2 - slide1
