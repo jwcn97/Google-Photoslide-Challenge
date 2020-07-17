@@ -1,1 +1,1 @@
-"# Google-Photoslide-Challenge" 
+# Google-Photoslide-Challenge
