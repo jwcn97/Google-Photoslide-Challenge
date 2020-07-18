@@ -82,7 +82,8 @@ def optimise(start, slides):
             new_slides.append((next_pic, score))
             start = next_pic
 
-        print([x[0] for x in new_slides])
-        print(sum([x[1] for x in new_slides]))
+        print("list:", [x[0] for x in new_slides])
+        print("score:", sum([x[1] for x in new_slides]))
+        print("")
 
 
