@@ -32,19 +32,25 @@ def transition_score(s1, s2):
     return min(len(s1 & s2), len(s1 - s2), len(s2 - s1))
 
 '''
-create a matrix that stores the scores between any picture
+create a dict that stores the scores between any picture
+keys: possible scores
+values: list of tuples indicating the picture index pairs
 '''
-def cal_mat(df, N_pics):
-    matrix = np.zeros((N_pics, N_pics))
+def cal_flow(df):
+    f_list = {}
 
     tags = list(df['tags'].values)
 
     for i in range(len(tags)-1):
         for j in range(i+1, len(tags)):
-            matrix[i,j] = transition_score(tags[i], tags[j])
-            # matrix[i,j] = score
+            score = transition_score(tags[i], tags[j])
+            if score > 0:
+                if score not in f_list.keys():
+                    f_list[score] = [(i,j)]
+                else:
+                    f_list[score].append((i,j))
 
-    return matrix
+    return f_list
 
 '''
 calculate maximum score pairings
