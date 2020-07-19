@@ -1,20 +1,22 @@
 from jing_util import *
 import time
+import sys
 start_time = time.time()
 absolute_start = start_time
 
-# 60,000 rows of verticals
-# 30,000 rows of horizontals
+# 60,000 rows of verticals and 30,000 rows of horizontals
 # disregard orientation for now
-df, N_pics = extract_data("test_test.txt")
-# df, N_pics = extract_data("test_file.txt")
-clear_interval = min(1000, N_pics)
+
+# df, N_pics = extract_data("test_test.txt")
+df, N_pics = extract_data("test_file.txt")
 # df, N_pics = extract_data("d_pet_pictures.txt")
+clear_interval = min(1000, N_pics)
+
 print("")
 print("finish extracting data in %s ms" % ((time.time() - start_time)*1000))
 start_time = time.time()
 
-dic = cal_flow(df)
+dic = cal_flow(df, min_score=2)
 print("finish creating score dict in %s minutes" % ((time.time() - start_time)/60))
 print("")
 start_time = time.time()
@@ -35,14 +37,16 @@ while current_len < len(new_list):
     current_len = len(new_list)
 
     # remove transition scores relating to slides that already used up
-    # computationally expensive and tedious, which is why it is not run in the while loop below
+    # computationally expensive and tedious, run only in pre-determined intervals
     if current_len % clear_interval == 0:
         print("score:", new_list_scr)
         print("--- finish creating slides %s to %s in %s minutes ---" % ((current_len-clear_interval+1), current_len, (time.time() - start_time)/60))
         start_time = time.time()
 
         for scr in scr_list:
-            dic[scr] = set(dic[scr]) - set([x for x in dic[scr] if (x[0] in new_list[1:-1]) or (x[1] in new_list[1:-1])])
+            occupied = new_list[1:-1]
+            dic[scr] = set(dic[scr]) - set([x for x in dic[scr] if len(set(x) & set(occupied)) > 0])
+            print("score %s: taken %s minutes" % (scr, (time.time() - start_time)/60))
 
         print("--- finish clearing part %s/%s of dict in %s minutes ---" % ((current_len//clear_interval), (N_pics//clear_interval), (time.time() - start_time)/60))
         print("")
@@ -85,4 +89,3 @@ while current_len < len(new_list):
     # print("score:", new_list_scr, "; list_len:", len(new_list))
 
 print("--- finish creating slideshow in %s hours ---" % ((time.time() - absolute)/3600))
-print("")

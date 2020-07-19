@@ -36,7 +36,7 @@ create a dict that stores the scores between any picture
 keys: possible scores
 values: list of tuples indicating the picture index pairs
 '''
-def cal_flow(df):
+def cal_flow(df, min_score=1):
     f_list = {}
 
     tags = list(df['tags'].values)
@@ -44,13 +44,16 @@ def cal_flow(df):
     for i in range(len(tags)-1):
         for j in range(i+1, len(tags)):
             score = transition_score(tags[i], tags[j])
-            if score > 0:
+            if score >= min_score:
                 if score not in f_list.keys():
                     f_list[score] = [(i,j)]
                 else:
                     f_list[score].append((i,j))
 
     return f_list
+
+def Diff(li1, li2): 
+    return [i for i in li1 + li2 if i not in li1 or i not in li2]
 
 '''
 print out number of transitions that are grouped in terms of score
