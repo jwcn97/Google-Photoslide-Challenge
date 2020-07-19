@@ -7,7 +7,6 @@ absolute_start = start_time
 # 60,000 rows of verticals and 30,000 rows of horizontals
 # disregard orientation for now
 
-# df, N_pics = extract_data("test_test.txt")
 df, N_pics = extract_data("test_file.txt")
 # df, N_pics = extract_data("d_pet_pictures.txt")
 clear_interval = min(1000, N_pics)
@@ -36,7 +35,7 @@ while current_len < len(new_list):
     # update current length of new list
     current_len = len(new_list)
 
-    # remove transition scores relating to slides that already used up
+    # remove transition scores relating to slides that are already used up
     # computationally expensive and tedious, run only in pre-determined intervals
     if current_len % clear_interval == 0:
         print("score:", new_list_scr)
@@ -45,7 +44,7 @@ while current_len < len(new_list):
 
         for scr in scr_list:
             occupied = new_list[1:-1]
-            dic[scr] = set(dic[scr]) - set([x for x in dic[scr] if len(set(x) & set(occupied)) > 0])
+            dic[scr] = [x for x in dic[scr] if len(set(x) & set(occupied)) == 0]
             print("score %s: taken %s minutes" % (scr, (time.time() - start_time)/60))
 
         print("--- finish clearing part %s/%s of dict in %s minutes ---" % ((current_len//clear_interval), (N_pics//clear_interval), (time.time() - start_time)/60))
