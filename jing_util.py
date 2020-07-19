@@ -1,4 +1,5 @@
 import pandas as pd
+import numpy as np
 from collections import deque
 import random
 
@@ -7,9 +8,9 @@ input: name of textfile
 output: dataframe
 '''
 def extract_data(filename):
-    # open file and skips the first line (which just tells us how many pictures there are)
+    # open file
     f = open(filename, "r")
-    next(f)
+    N_pics = int(f.readline())
 
     rows = []
     for line in f:
@@ -21,7 +22,7 @@ def extract_data(filename):
     # close file
     f.close()
     # append into dataframe
-    return pd.DataFrame(rows, columns=['orientation', 'number of tags', 'tags'])
+    return pd.DataFrame(rows, columns=['orientation', 'number of tags', 'tags']), N_pics
 
 '''
 input: two sets of string elements
@@ -31,9 +32,24 @@ def transition_score(s1, s2):
     return min(len(s1 & s2), len(s1 - s2), len(s2 - s1))
 
 '''
+create a matrix that stores the scores between any picture
+'''
+def cal_mat(df, N_pics):
+    matrix = np.zeros((N_pics, N_pics))
+
+    tags = list(df['tags'].values)
+
+    for i in range(len(tags)-1):
+        for j in range(i+1, len(tags)):
+            matrix[i,j] = transition_score(tags[i], tags[j])
+            # matrix[i,j] = score
+
+    return matrix
+
+'''
 calculate maximum score pairings
 '''
-def cal_max(df, max_len=10):
+def cal_max(df, max_len=10, interval=500):
     tags = list(df['tags'].values)
 
     for i in range(len(tags)):
@@ -47,7 +63,7 @@ def cal_max(df, max_len=10):
             else:
                 old_len = len(max_score)
                 for k in range(len(max_score),0,-1):
-                    if score > max_score[k-1][-1]:
+                    if score >= max_score[k-1][-1]:
                         if len(max_score) == max_len:
                             max_score.popleft()
                             k -= 1
@@ -58,12 +74,15 @@ def cal_max(df, max_len=10):
 
         df.loc[i,"max"] = ",".join([str(x) for x in list(max_score)])
 
+        if i+1 % interval == 0:
+            print(i, ":", max_score)
+
     return df
 
 '''
 arrange slides according to maximum score pairings
 '''
-def optimise(start, slides):
+def optimise(start, slides, interval):
     new_slides = [(start,0)]
     for i in range(len(slides)-1):
         j = -1
@@ -82,8 +101,9 @@ def optimise(start, slides):
             new_slides.append((next_pic, score))
             start = next_pic
 
-        print("list:", [x[0] for x in new_slides])
-        print("score:", sum([x[1] for x in new_slides]))
-        print("")
+        if i+1 % interval == 0:
+            print("score:", sum([x[1] for x in new_slides]))
+
+    return [x[0] for x in new_slides], sum([x[1] for x in new_slides])
 
 
