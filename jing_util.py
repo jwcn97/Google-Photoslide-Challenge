@@ -53,63 +53,27 @@ def cal_flow(df):
     return f_list
 
 '''
-calculate maximum score pairings
+print out number of transitions that are grouped in terms of score
+input:
+    flist, a dictionary of transitions grouped by score
+    index, all transitions that contain this particular index
 '''
-def cal_max(df, max_len=10, interval=500):
-    tags = list(df['tags'].values)
+def print_transitions_by_score(dic, index=None, max=None):
+    new_dict = {}
+    if index is not None:
+        count = 0
+        for score in sorted(dic, reverse=True):
+            if len([x for x in dic[score] if x[0] == index or x[1] == index]) > 0:
+                new_dict[score] = [x for x in dic[score] if x[0] == index or x[1] == index]
+                print(score, ":", len([x for x in dic[score] if x[0] == index or x[1] == index]))
+                # print(score, ":", [x for x in dic[score] if x[0] == index or x[1] == index])
+                count += 1
+                if count == max: break
 
-    for i in range(len(tags)):
-        max_score = deque(maxlen=max_len)
-        for j in range(len(tags)):
-            if i == j: continue
-            
-            score = transition_score(tags[i], tags[j])
-            if len(max_score) == 0:
-                max_score.append((j, score))
-            else:
-                old_len = len(max_score)
-                for k in range(len(max_score),0,-1):
-                    if score >= max_score[k-1][-1]:
-                        if len(max_score) == max_len:
-                            max_score.popleft()
-                            k -= 1
-                        max_score.insert(k, (j, score))
-                        break
-                if (len(max_score) < max_len) and (old_len == len(max_score)):
-                    max_score.insert(0, (j, score))
+    else:
+        new_dict = dic
+        for score in sorted(dic, reverse=True):
+            print(score, ":", len([x for x in dic[score]]))
+            # print(score, ":", [x for x in dic[score]])
 
-        df.loc[i,"max"] = ",".join([str(x) for x in list(max_score)])
-
-        if i+1 % interval == 0:
-            print(i, ":", max_score)
-
-    return df
-
-'''
-arrange slides according to maximum score pairings
-'''
-def optimise(start, slides, interval):
-    new_slides = [(start,0)]
-    for i in range(len(slides)-1):
-        j = -1
-        next_slide = eval(slides[start])
-        while next_slide[j][0] in [x[0] for x in new_slides]:
-            j -= 1
-            if -j > len(next_slide): break
-        
-        if -j <= len(next_slide):
-            new_slides.append(next_slide[j])
-            start = next_slide[j][0]
-        else:
-            remaining = set(range(len(slides))) - set([x[0] for x in new_slides])
-            next_pic = random.choice(list(remaining))
-            score = transition_score(set(eval(slides[start])), set(eval(slides[next_pic])))
-            new_slides.append((next_pic, score))
-            start = next_pic
-
-        if i+1 % interval == 0:
-            print("score:", sum([x[1] for x in new_slides]))
-
-    return [x[0] for x in new_slides], sum([x[1] for x in new_slides])
-
-
+    return new_dict
