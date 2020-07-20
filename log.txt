@@ -1,0 +1,30 @@
+finish extracting data in 33.944129943847656 ms
+finish creating score dict in 2.696747903029124 minutes
+score: 7751
+--- finish creating slides 1 to 1000 in 0.11028859615325928 minutes ---
+--- finish clearing part 1/10 of dict in 13.91702207326889 minutes ---
+score: 14757
+--- finish creating slides 1001 to 2000 in 0.09825429916381836 minutes ---
+--- finish clearing part 2/10 of dict in 32.656570581595105 minutes ---
+score: 21090
+--- finish creating slides 2001 to 3000 in 0.09489570061365764 minutes ---
+--- finish clearing part 3/10 of dict in 33.93749459981918 minutes ---
+score: 26721
+--- finish creating slides 3001 to 4000 in 0.15542258421579996 minutes ---
+--- finish clearing part 4/10 of dict in 29.38144990603129 minutes ---
+score: 31823
+--- finish creating slides 4001 to 5000 in 0.15850976705551148 minutes ---
+--- finish clearing part 5/10 of dict in 25.91250493923823 minutes ---
+score: 36175
+--- finish creating slides 5001 to 6000 in 0.12589649756749471 minutes ---
+--- finish clearing part 6/10 of dict in 13.855728693803151 minutes ---
+score: 39736
+--- finish creating slides 6001 to 7000 in 0.1819503426551819 minutes ---
+--- finish clearing part 7/10 of dict in 6.802413324515025 minutes ---
+score: 42498
+--- finish creating slides 7001 to 8000 in 0.47843714952468874 minutes ---
+--- finish clearing part 8/10 of dict in 2.482517965634664 minutes ---
+score: 44952
+--- finish creating slides 8001 to 9000 in 0.3431402564048767 minutes ---
+--- finish clearing part 9/10 of dict in 0.7239320556322734 minutes ---
+--- finish creating slideshow in 2.7356980068153804 hours ---

@@ -7,7 +7,7 @@ absolute_start = start_time
 # 60,000 rows of verticals and 30,000 rows of horizontals
 # disregard orientation for now
 
-df, N_pics = extract_data("test_file.txt")
+df, N_pics = extract_data("d_pet_test.txt")
 # df, N_pics = extract_data("d_pet_pictures.txt")
 clear_interval = min(1000, N_pics)
 
@@ -42,8 +42,8 @@ while current_len < len(new_list):
         print("--- finish creating slides %s to %s in %s minutes ---" % ((current_len-clear_interval+1), current_len, (time.time() - start_time)/60))
         start_time = time.time()
 
+        occupied = new_list[1:-1]
         for scr in scr_list:
-            occupied = new_list[1:-1]
             dic[scr] = [x for x in dic[scr] if len(set(x) & set(occupied)) == 0]
             print("score %s: taken %s minutes" % (scr, (time.time() - start_time)/60))
 
@@ -87,4 +87,4 @@ while current_len < len(new_list):
 
     # print("score:", new_list_scr, "; list_len:", len(new_list))
 
-print("--- finish creating slideshow in %s hours ---" % ((time.time() - absolute)/3600))
+print("--- finish creating slideshow in %s hours ---" % ((time.time() - absolute_start)/3600))
