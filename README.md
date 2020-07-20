@@ -4,3 +4,6 @@
 2. Dictionary is sorted (and always going to be searched) from highest to lowest
 2. Take two nodes with the highest score and keep searching for slides with high transitions to the head and tail in decreasing order of score
 3. Clear the cache periodically every 1000 to speed up the search
+<br/>
+able to run 10,000 pictures in 2.7 hours<br/>
+score: 46,000
