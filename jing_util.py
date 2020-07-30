@@ -31,6 +31,9 @@ output: score between two slides
 def transition_score(s1, s2):
     return min(len(s1 & s2), len(s1 - s2), len(s2 - s1))
 
+def deviation_score(s1, s2):
+    return (0.5 * min(len(s1), len(s2))) - transition_score(s1, s2)
+
 '''
 create a dict that stores the scores between any picture
 keys: possible scores
@@ -51,9 +54,6 @@ def cal_flow(df, min_score=1):
                     f_list[score].append((i,j))
 
     return f_list
-
-def Diff(li1, li2): 
-    return [i for i in li1 + li2 if i not in li1 or i not in li2]
 
 '''
 print out number of transitions that are grouped in terms of score
