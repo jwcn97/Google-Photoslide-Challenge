@@ -22,7 +22,7 @@ def extract_data(filename):
     # close file
     f.close()
     # append into dataframe
-    return pd.DataFrame(rows, columns=['orientation', 'number of tags', 'tags']), N_pics
+    return pd.DataFrame(rows, columns=['orientation', 'number of tags', 'tags'])
 
 '''
 input: two sets of string elements
@@ -31,52 +31,20 @@ output: score between two slides
 def transition_score(s1, s2):
     return min(len(s1 & s2), len(s1 - s2), len(s2 - s1))
 
-def deviation_score(s1, s2):
-    return (0.5 * min(len(s1), len(s2))) - transition_score(s1, s2)
-
 '''
-create a dict that stores the scores between any picture
-keys: possible scores
-values: list of tuples indicating the picture index pairs
+create a dict
+keys: number of tags a photo has
+values: photos that has that number of tags
 '''
-def cal_flow(df, min_score=1):
-    f_list = {}
+def num_tag_dict(df):
+    t_list = {}
+    taglist = list(df['tags'].values)
 
-    tags = list(df['tags'].values)
+    for i in range(len(taglist)):
+        tag_len = len(taglist[i])
+        if tag_len not in t_list.keys():
+            t_list[tag_len] = [df.iloc[[i]].index[0]]
+        else:
+            t_list[tag_len].append(df.iloc[[i]].index[0])
 
-    for i in range(len(tags)-1):
-        for j in range(i+1, len(tags)):
-            score = transition_score(tags[i], tags[j])
-            if score >= min_score:
-                if score not in f_list.keys():
-                    f_list[score] = [(i,j)]
-                else:
-                    f_list[score].append((i,j))
-
-    return f_list
-
-'''
-print out number of transitions that are grouped in terms of score
-input:
-    flist, a dictionary of transitions grouped by score
-    index, all transitions that contain this particular index
-'''
-def print_transitions_by_score(dic, index=None, max=None):
-    new_dict = {}
-    if index is not None:
-        count = 0
-        for score in sorted(dic, reverse=True):
-            if len([x for x in dic[score] if x[0] == index or x[1] == index]) > 0:
-                new_dict[score] = [x for x in dic[score] if x[0] == index or x[1] == index]
-                print(score, ":", len([x for x in dic[score] if x[0] == index or x[1] == index]))
-                # print(score, ":", [x for x in dic[score] if x[0] == index or x[1] == index])
-                count += 1
-                if count == max: break
-
-    else:
-        new_dict = dic
-        for score in sorted(dic, reverse=True):
-            print(score, ":", len([x for x in dic[score]]))
-            # print(score, ":", [x for x in dic[score]])
-
-    return new_dict
+    return t_list

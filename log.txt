@@ -1,30 +1,34 @@
-finish extracting data in 33.944129943847656 ms
-finish creating score dict in 2.696747903029124 minutes
-score: 7751
---- finish creating slides 1 to 1000 in 0.11028859615325928 minutes ---
---- finish clearing part 1/10 of dict in 13.91702207326889 minutes ---
-score: 14757
---- finish creating slides 1001 to 2000 in 0.09825429916381836 minutes ---
---- finish clearing part 2/10 of dict in 32.656570581595105 minutes ---
-score: 21090
---- finish creating slides 2001 to 3000 in 0.09489570061365764 minutes ---
---- finish clearing part 3/10 of dict in 33.93749459981918 minutes ---
-score: 26721
---- finish creating slides 3001 to 4000 in 0.15542258421579996 minutes ---
---- finish clearing part 4/10 of dict in 29.38144990603129 minutes ---
-score: 31823
---- finish creating slides 4001 to 5000 in 0.15850976705551148 minutes ---
---- finish clearing part 5/10 of dict in 25.91250493923823 minutes ---
-score: 36175
---- finish creating slides 5001 to 6000 in 0.12589649756749471 minutes ---
---- finish clearing part 6/10 of dict in 13.855728693803151 minutes ---
-score: 39736
---- finish creating slides 6001 to 7000 in 0.1819503426551819 minutes ---
---- finish clearing part 7/10 of dict in 6.802413324515025 minutes ---
-score: 42498
---- finish creating slides 7001 to 8000 in 0.47843714952468874 minutes ---
---- finish clearing part 8/10 of dict in 2.482517965634664 minutes ---
-score: 44952
---- finish creating slides 8001 to 9000 in 0.3431402564048767 minutes ---
---- finish clearing part 9/10 of dict in 0.7239320556322734 minutes ---
---- finish creating slideshow in 2.7356980068153804 hours ---
+Finish extracting and storing data in 14 seconds
+
+list_len: 1000 ; score: 8342 ; time: 3 minutes
+list_len: 2000 ; score: 16318 ; time: 2 minutes
+list_len: 3000 ; score: 24214 ; time: 2 minutes
+list_len: 4000 ; score: 31373 ; time: 4 minutes
+list_len: 5000 ; score: 38371 ; time: 3 minutes
+list_len: 6000 ; score: 45355 ; time: 2 minutes
+list_len: 7000 ; score: 52259 ; time: 2 minutes
+list_len: 8000 ; score: 58524 ; time: 3 minutes
+list_len: 9000 ; score: 64518 ; time: 3 minutes
+list_len: 10000 ; score: 70512 ; time: 3 minutes
+list_len: 11000 ; score: 76460 ; time: 2 minutes
+list_len: 12000 ; score: 82052 ; time: 2 minutes
+list_len: 13000 ; score: 87053 ; time: 3 minutes
+list_len: 14000 ; score: 92050 ; time: 2 minutes
+list_len: 15000 ; score: 97023 ; time: 2 minutes
+list_len: 16000 ; score: 101805 ; time: 2 minutes
+list_len: 17000 ; score: 105864 ; time: 3 minutes
+list_len: 18000 ; score: 109862 ; time: 3 minutes
+list_len: 19000 ; score: 113853 ; time: 2 minutes
+list_len: 20000 ; score: 117733 ; time: 2 minutes
+list_len: 21000 ; score: 120897 ; time: 3 minutes
+list_len: 22000 ; score: 123897 ; time: 3 minutes
+list_len: 23000 ; score: 126890 ; time: 2 minutes
+list_len: 24000 ; score: 129835 ; time: 2 minutes
+list_len: 25000 ; score: 131954 ; time: 3 minutes
+list_len: 26000 ; score: 133954 ; time: 3 minutes
+list_len: 27000 ; score: 135953 ; time: 2 minutes
+list_len: 28000 ; score: 137920 ; time: 1 minutes
+list_len: 29000 ; score: 138979 ; time: 1 minutes
+list_len: 29964 ; score: 139943 ; time: 0 minutes
+
+Total time: 73 minutes

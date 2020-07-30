@@ -1,31 +1,43 @@
 from jing_util import *
 import time
 import sys
+
 start_time = time.time()
 absolute_start = start_time
+clear_interval = 1000
 
 # 60,000 rows of verticals and 30,000 rows of horizontals
-# disregard orientation for now
+# only choose horizontal for now
 
-df, N_pics = extract_data("d_pet_test.txt")
-# df, N_pics = extract_data("d_pet_pictures.txt")
-clear_interval = min(1000, N_pics)
+df = extract_data("d_pet_pictures.txt")
+df = df[df['orientation'] == 'H']
+N_pics = len(df)
 
-print("")
-print("finish extracting data in %s ms" % ((time.time() - start_time)*1000))
-start_time = time.time()
-
-dic = cal_flow(df, min_score=2)
-print("finish creating score dict in %s minutes" % ((time.time() - start_time)/60))
-print("")
-start_time = time.time()
-
+# create dictionary
+# key: number of tags in a picture
+# value: picture ID
+dic = num_tag_dict(df)
 scr_list = sorted(dic, reverse=True)
-# find nodes with the highest score in the whole matrix
-(i,j) = dic[scr_list[0]][0]
-# i,j = head & tail of slideshow pointer
+print("\nFinish extracting and storing data in %s seconds" % round(time.time() - start_time))
+start_time = time.time()
+
+# FIND FIRST PAIR
+i = j = None
+new_list_scr = 0
+num_max = None
+for slide in dic[scr_list[0]]:
+    for num in scr_list:
+        for other in dic[num]:
+            score = transition_score(set(df.loc[slide, 'tags']), set(df.loc[other, 'tags']))
+            if score > new_list_scr:
+                i, j, num_max, new_list_scr = slide, other, num, score
+
+        if num < (new_list_scr * 2): break
+
+dic[scr_list[0]].remove(i)
+dic[num_max].remove(j)
+
 new_list = [i,j]
-new_list_scr = scr_list[0]
 current_len = 1
 
 i_search = j_search = True
@@ -35,56 +47,46 @@ while current_len < len(new_list):
     # update current length of new list
     current_len = len(new_list)
 
-    # remove transition scores relating to slides that are already used up
-    # computationally expensive and tedious, run only in pre-determined intervals
     if current_len % clear_interval == 0:
-        print("score:", new_list_scr)
-        print("--- finish creating slides %s to %s in %s minutes ---" % ((current_len-clear_interval+1), current_len, (time.time() - start_time)/60))
+        print("list_len: %s ; score: %s ; time: %s minutes" % (len(new_list), new_list_scr, round((time.time() - start_time)/60)))
         start_time = time.time()
 
-        occupied = new_list[1:-1]
-        for scr in scr_list:
-            dic[scr] = [x for x in dic[scr] if len(set(x) & set(occupied)) == 0]
-            print("score %s: taken %s minutes" % (scr, (time.time() - start_time)/60))
+    # CHOOSING PHOTO TO APPEND TO THE HEAD
+    max_score = 0
+    max_slide = None
+    for num in scr_list:
+        for other in dic[num]:
+            # calculate maximum possible score between front photo and the rest of the unused photos
+            score = transition_score(set(df.loc[i, 'tags']), set(df.loc[other, 'tags']))
+            if score > max_score:
+                max_score, max_slide = score, [num, other]
 
-        print("--- finish clearing part %s/%s of dict in %s minutes ---" % ((current_len//clear_interval), (N_pics//clear_interval), (time.time() - start_time)/60))
-        print("")
-        start_time = time.time()
+        # maximum score between slides = 0.5 * number of tags of pic with lesser tags
+        # break from loop if number of tags is smaller than twice the maximum score
+        if num < (max_score * 2): break
 
-    if i_search or j_search:
-        i_search = j_search = False
+    if max_slide:
+        i = max_slide[1]            # update head pointer
+        new_list.insert(0, i)       # append to start of slideshow
+        new_list_scr += max_score   # update score
+        dic[max_slide[0]].remove(i) # remove photo from dictionary
 
-        # loop through transitions from highest score to lowest score
-        for score in scr_list:
-            if not i_search:
-                # list of possible transitions at the head of the slideshow
-                lst = [x for x in dic[score] if i in x]
-                # list of possible slides appended to the head of slideshow
-                others = [x[0] if i == x[1] else x[1] for x in lst]
-                others = [x for x in others if x not in new_list]
-                
-                if len(others) > 0:
-                    new_list.insert(0,others[0]) # append to start of new list
-                    new_list_scr += score        # update score
-                    i_search = True              # a slide has been found, break from the loop
-                    i = others[0]                # update head pointer of slideshow
+    # CHOOSING PHOTO TO APPEND TO THE TAIL
+    max_score = 0
+    max_slide = None
+    for num in scr_list:
+        for other in dic[num]:
+            score = transition_score(set(df.loc[j, 'tags']), set(df.loc[other, 'tags']))
+            if score > max_score:
+                max_score, max_slide = score, [num, other]
+        
+        if num < (max_score * 2): break
 
-            if not j_search:
-                # list of possible transitions at the tail of the slideshow
-                lst = [x for x in dic[score] if j in x]
-                # list of possible slides appended to the tail of slideshow
-                others = [x[0] if j == x[1] else x[1] for x in lst]
-                others = [x for x in others if x not in new_list]
+    if max_slide:
+        j = max_slide[1]
+        new_list.append(j)
+        new_list_scr += max_score
+        dic[max_slide[0]].remove(j)
 
-                if len(others) > 0:
-                    new_list.append(others[0]) # append to end of new list
-                    new_list_scr += score      # update score
-                    j_search = True            # a slide has been found, break from the loop
-                    j = others[0]              # update tail pointer of slideshow
-                
-            # both head and tails have been appended
-            if i_search and j_search: break
-
-    # print("score:", new_list_scr, "; list_len:", len(new_list))
-
-print("--- finish creating slideshow in %s hours ---" % ((time.time() - absolute_start)/3600))
+print("list_len: %s ; score: %s ; time: %s minutes" % (len(new_list), new_list_scr, round((time.time() - start_time)/60)))
+print("Total time: %s minutes" % round((time.time() - absolute_start)/60))
