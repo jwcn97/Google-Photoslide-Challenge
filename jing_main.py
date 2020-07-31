@@ -1,6 +1,7 @@
 from jing_util import *
 import time
 import sys
+import pprint
 
 start_time = time.time()
 absolute_start = start_time
@@ -10,13 +11,15 @@ clear_interval = 1000
 # only choose horizontal for now
 
 df = extract_data("d_pet_pictures.txt")
-df = df[df['orientation'] == 'H']
 N_pics = len(df)
+hor = df[df['orientation'] == 'H']
+ver = df[df['orientation'] == 'V']
 
 # create dictionary
 # key: number of tags in a picture
 # value: picture ID
-dic = num_tag_dict(df)
+dic = num_tag_dict(hor)
+dic = num_tag_dict(ver, dic)
 scr_list = sorted(dic, reverse=True)
 print("\nFinish extracting and storing data in %s seconds" % round(time.time() - start_time))
 start_time = time.time()
@@ -28,7 +31,7 @@ num_max = None
 for slide in dic[scr_list[0]]:
     for num in scr_list:
         for other in dic[num]:
-            score = transition_score(set(df.loc[slide, 'tags']), set(df.loc[other, 'tags']))
+            score = transition_score(df, slide1, slide2)
             if score > new_list_scr:
                 i, j, num_max, new_list_scr = slide, other, num, score
 
@@ -40,15 +43,13 @@ dic[num_max].remove(j)
 new_list = [i,j]
 current_len = 1
 
-i_search = j_search = True
-
 # continue operation if length of slideshow is still changing
 while current_len < len(new_list):
     # update current length of new list
     current_len = len(new_list)
 
     if current_len % clear_interval == 0:
-        print("list_len: %s ; score: %s ; time: %s minutes" % (len(new_list), new_list_scr, round((time.time() - start_time)/60)))
+        print("length of slideshow: %s ; score: %s ; time: %s minutes" % (len(new_list), new_list_scr, round((time.time() - start_time)/60)))
         start_time = time.time()
 
     # CHOOSING PHOTO TO APPEND TO THE HEAD
@@ -57,7 +58,7 @@ while current_len < len(new_list):
     for num in scr_list:
         for other in dic[num]:
             # calculate maximum possible score between front photo and the rest of the unused photos
-            score = transition_score(set(df.loc[i, 'tags']), set(df.loc[other, 'tags']))
+            score = transition_score(df, i, other)
             if score > max_score:
                 max_score, max_slide = score, [num, other]
 
@@ -76,7 +77,7 @@ while current_len < len(new_list):
     max_slide = None
     for num in scr_list:
         for other in dic[num]:
-            score = transition_score(set(df.loc[j, 'tags']), set(df.loc[other, 'tags']))
+            score = transition_score(df, j, other)
             if score > max_score:
                 max_score, max_slide = score, [num, other]
         
@@ -88,5 +89,13 @@ while current_len < len(new_list):
         new_list_scr += max_score
         dic[max_slide[0]].remove(j)
 
-print("list_len: %s ; score: %s ; time: %s minutes" % (len(new_list), new_list_scr, round((time.time() - start_time)/60)))
+print("length of slideshow: %s ; score: %s ; time: %s minutes" % (len(new_list), new_list_scr, round((time.time() - start_time)/60)))
+start_time = time.time()
+
+file1 = open("submission.txt","w")
+for slide in new_list:
+    file1.write(" ".join([str(x) for x in slide]) + "\n")
+file1.close()
+print("updated submission file: %s minutes" % round((time.time() - start_time)/60))
+
 print("Total time: %s minutes" % round((time.time() - absolute_start)/60))

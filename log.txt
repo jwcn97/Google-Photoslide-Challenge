@@ -1,34 +1,63 @@
-Finish extracting and storing data in 14 seconds
-
-list_len: 1000 ; score: 8342 ; time: 3 minutes
-list_len: 2000 ; score: 16318 ; time: 2 minutes
-list_len: 3000 ; score: 24214 ; time: 2 minutes
-list_len: 4000 ; score: 31373 ; time: 4 minutes
-list_len: 5000 ; score: 38371 ; time: 3 minutes
-list_len: 6000 ; score: 45355 ; time: 2 minutes
-list_len: 7000 ; score: 52259 ; time: 2 minutes
-list_len: 8000 ; score: 58524 ; time: 3 minutes
-list_len: 9000 ; score: 64518 ; time: 3 minutes
-list_len: 10000 ; score: 70512 ; time: 3 minutes
-list_len: 11000 ; score: 76460 ; time: 2 minutes
-list_len: 12000 ; score: 82052 ; time: 2 minutes
-list_len: 13000 ; score: 87053 ; time: 3 minutes
-list_len: 14000 ; score: 92050 ; time: 2 minutes
-list_len: 15000 ; score: 97023 ; time: 2 minutes
-list_len: 16000 ; score: 101805 ; time: 2 minutes
-list_len: 17000 ; score: 105864 ; time: 3 minutes
-list_len: 18000 ; score: 109862 ; time: 3 minutes
-list_len: 19000 ; score: 113853 ; time: 2 minutes
-list_len: 20000 ; score: 117733 ; time: 2 minutes
-list_len: 21000 ; score: 120897 ; time: 3 minutes
-list_len: 22000 ; score: 123897 ; time: 3 minutes
-list_len: 23000 ; score: 126890 ; time: 2 minutes
-list_len: 24000 ; score: 129835 ; time: 2 minutes
-list_len: 25000 ; score: 131954 ; time: 3 minutes
-list_len: 26000 ; score: 133954 ; time: 3 minutes
-list_len: 27000 ; score: 135953 ; time: 2 minutes
-list_len: 28000 ; score: 137920 ; time: 1 minutes
-list_len: 29000 ; score: 138979 ; time: 1 minutes
-list_len: 29964 ; score: 139943 ; time: 0 minutes
-
-Total time: 73 minutes
+Finish extracting and storing data in 44 seconds
+length of slideshow: 1000 ; score: 14358 ; time: 1 minutes
+length of slideshow: 2000 ; score: 27543 ; time: 3 minutes
+length of slideshow: 3000 ; score: 40279 ; time: 3 minutes
+length of slideshow: 4000 ; score: 52278 ; time: 5 minutes
+length of slideshow: 5000 ; score: 64266 ; time: 3 minutes
+length of slideshow: 6000 ; score: 75561 ; time: 5 minutes
+length of slideshow: 7000 ; score: 86561 ; time: 5 minutes
+length of slideshow: 8000 ; score: 97551 ; time: 4 minutes
+length of slideshow: 9000 ; score: 108193 ; time: 5 minutes
+length of slideshow: 10000 ; score: 118193 ; time: 7 minutes
+length of slideshow: 11000 ; score: 128191 ; time: 6 minutes
+length of slideshow: 12000 ; score: 138176 ; time: 5 minutes
+length of slideshow: 13000 ; score: 148038 ; time: 4 minutes
+length of slideshow: 14000 ; score: 157051 ; time: 9 minutes
+length of slideshow: 15000 ; score: 166050 ; time: 8 minutes
+length of slideshow: 16000 ; score: 175047 ; time: 6 minutes
+length of slideshow: 17000 ; score: 184024 ; time: 5 minutes
+length of slideshow: 18000 ; score: 192783 ; time: 6 minutes
+length of slideshow: 19000 ; score: 200801 ; time: 8 minutes
+length of slideshow: 20000 ; score: 208800 ; time: 8 minutes
+length of slideshow: 21000 ; score: 216799 ; time: 8 minutes
+length of slideshow: 22000 ; score: 224792 ; time: 6 minutes
+length of slideshow: 23000 ; score: 232776 ; time: 5 minutes
+length of slideshow: 24000 ; score: 240718 ; time: 5 minutes
+length of slideshow: 25000 ; score: 248258 ; time: 6 minutes
+length of slideshow: 26000 ; score: 255257 ; time: 8 minutes
+length of slideshow: 27000 ; score: 262257 ; time: 7 minutes
+length of slideshow: 28000 ; score: 269256 ; time: 8 minutes
+length of slideshow: 29000 ; score: 276253 ; time: 7 minutes
+length of slideshow: 30000 ; score: 283235 ; time: 5 minutes
+length of slideshow: 31000 ; score: 290187 ; time: 5 minutes
+length of slideshow: 32000 ; score: 296871 ; time: 6 minutes
+length of slideshow: 33000 ; score: 302914 ; time: 7 minutes
+length of slideshow: 34000 ; score: 308912 ; time: 6 minutes
+length of slideshow: 35000 ; score: 314909 ; time: 6 minutes
+length of slideshow: 36000 ; score: 320906 ; time: 5 minutes
+length of slideshow: 37000 ; score: 326894 ; time: 4 minutes
+length of slideshow: 38000 ; score: 332824 ; time: 4 minutes
+length of slideshow: 39000 ; score: 338353 ; time: 5 minutes
+length of slideshow: 40000 ; score: 343354 ; time: 6 minutes
+length of slideshow: 41000 ; score: 348353 ; time: 6 minutes
+length of slideshow: 42000 ; score: 353350 ; time: 6 minutes
+length of slideshow: 43000 ; score: 358335 ; time: 4 minutes
+length of slideshow: 44000 ; score: 363253 ; time: 3 minutes
+length of slideshow: 45000 ; score: 367629 ; time: 5 minutes
+length of slideshow: 46000 ; score: 371627 ; time: 5 minutes
+length of slideshow: 47000 ; score: 375626 ; time: 4 minutes
+length of slideshow: 48000 ; score: 379620 ; time: 4 minutes
+length of slideshow: 49000 ; score: 383594 ; time: 2 minutes
+length of slideshow: 50000 ; score: 387182 ; time: 3 minutes
+length of slideshow: 51000 ; score: 390182 ; time: 3 minutes
+length of slideshow: 52000 ; score: 393180 ; time: 3 minutes
+length of slideshow: 53000 ; score: 396172 ; time: 2 minutes
+length of slideshow: 54000 ; score: 399108 ; time: 2 minutes
+length of slideshow: 55000 ; score: 401225 ; time: 3 minutes
+length of slideshow: 56000 ; score: 403225 ; time: 3 minutes
+length of slideshow: 57000 ; score: 405224 ; time: 2 minutes
+length of slideshow: 58000 ; score: 407194 ; time: 1 minutes
+length of slideshow: 59000 ; score: 408252 ; time: 1 minutes
+length of slideshow: 59974 ; score: 409226 ; time: 0 minutes
+updated submission file: 0 minutes
+Total time: 286 minutes
