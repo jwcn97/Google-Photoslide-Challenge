@@ -2,7 +2,7 @@
 
 > Task: Given a list of photos and the tags associated with each photo, arrange the photos into a slideshow that is as interesting as possible
 
-<img src="image.PNG" />
+<img src="image.PNG" width="500"/>
 
 1. Data is stored in a dictionary (key: tag-count of slide, value: ID of slide) for fast retrieval
 2. Take two slides with high score/tag count as head and tail of the slideshow
