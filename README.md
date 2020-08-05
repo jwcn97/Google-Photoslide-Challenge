@@ -10,7 +10,6 @@
    5. append slides with maximum scores to head and tail of slideshow
    6. Remove the slide IDs from the dictionary
   
-<br/>
 duration: 4 hours 40 minutes
 <br/>
 score: 409,226
