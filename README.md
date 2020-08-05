@@ -9,6 +9,6 @@
   d. add a condition to break the loop when (tag-count > 2 x maximum score) because theretically, no slide with equal or lower tag counts is going to break the maximum score record
   e. append slides with maximum scores to head and tail of slideshow
   f. Remove the slide IDs from the dictionary
-
-*<br/>duration: 4 hours 40 minutes<br/>
+<br/>
+*duration: 4 hours 40 minutes<br/>
 *score: 409,226
