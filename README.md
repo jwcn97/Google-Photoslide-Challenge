@@ -1,5 +1,7 @@
 # Google-Photoslide-Challenge
 
+> Given a list of photos and the tags associated with each photo, arrange the photos into a slideshow that is as interesting as possible
+
 1. Data is stored in a dictionary (key: tag-count of slide, value: ID of slide) for fast retrieval
 2. Take two slides with high score/tag count as head and tail of the slideshow
 3. Carry out the following while the slideshow is not completed:
